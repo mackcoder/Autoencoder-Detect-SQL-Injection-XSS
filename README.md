@@ -14,9 +14,21 @@ trained to identify anomalous patterns in web traffic. Publicly available datase
 for training and validation. The results indicated high efficiency in detecting SQL Injection,
 with strong recall and low false negatives, although with high false positive rates for XSS
 detection. It is concluded that the proposed approach is promising but requires further
-optimization before being used in production environments.
+optimization before being used in production environments
+
+## 🌟 Highlights
+  - SQL Injection and XSS (Cross-Site-Scripting)
+  - Datasets 
+  - Cybersecurity
+  - Autoencoder Vanila
+  - Detection tests and results
+  
 
 ## SQL Injection and XSS detection |👾⚠️|
-  
+
+
+
+
+
 
 
