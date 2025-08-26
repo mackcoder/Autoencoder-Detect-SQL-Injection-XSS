@@ -14,6 +14,7 @@
   - Detection tests and results
   
 ## 📝Desciption
+<div align="justify">
   This study aims to improve website defense systems through unsupervised machine
 learning methods to detect SQL Injection (SQLi) and Cross-Site Scripting (XSS) attacks.
 Using Python and artificial intelligence libraries, an autoencoder model was developed and
@@ -22,13 +23,31 @@ for training and validation. The results indicated high efficiency in detecting 
 with strong recall and low false negatives, although with high false positive rates for XSS
 detection. It is concluded that the proposed approach is promising but requires further
 optimization before being used in production environments
-
+</div>
 ## 🔎 Implementation and Experimental Setup
-  All following experiments were conducted using the **GoogleColab** enviroment 
+  All following experiments were conducted using the **GoogleColab** enviroment.
+
+  ## 📚 Libraries Used
+  - numpy - For numerical operations and array manipulation
+  - pandas - For data loading and preprocessing
+  - scikit-learn - For model evaluation, data splitting and scaling
+  - tensorflow - For building and training the Autoencoder model
+  - keras - High-level API for defining neural network layers
+  - classification_report & confusion_matrix - For performance metrics
+    
   ## 🗃️ Data Acquisition and Preprocessing
   > [!IMPORTANT]
   > **SQL Injection**
-  [Uploading manipula_dataset_SQL_training.py…]()
+  ##
+  <img width="756" height="373" alt="image" src="https://github.com/user-attachments/assets/bcb3dfba-7874-4e30-a29a-a6c84d115dde" />
+  ##
+  
+  > [!IMPORTANT]
+  > **XSS**
+  
+  ##
+  
+
 
 
 
