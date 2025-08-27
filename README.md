@@ -37,21 +37,25 @@ optimization before being used in production environments
   - classification_report & confusion_matrix - For performance metrics
     
   ## 🗃️ Data Acquisition and Preprocessing
-  ### Dataset
-  - [Uploading SLQ Injection Attack for training (D1).csv…]()
-  - [Uploading SLQ Injection Attack for Test (D2).csv…]()
-  - [Uploading XSSTesting.csv…]()
-  -
+  ### 📑 Datasets
+  - [Download SQL Injection Attack for Training (D1).csv](https://zenodo.org/records/6906893)
+  - [Download SQL Injection Attack for Test (D2).csv](https://zenodo.org/records/6907252)
+  - [Download XSSTraining.csv](https://github.com/fmereani/Cross-Site-Scripting-XSS/blob/master/XSSDataSets/XSSTesting.csv)
+  - [Download XSSTesting.csv](https://github.com/fmereani/Cross-Site-Scripting-XSS/blob/master/XSSDataSets/XSSTraining.csv)
   
   > [!IMPORTANT]
   > **SQL Injection**
   ##
-  <img width="756" height="373" alt="image" src="https://github.com/user-attachments/assets/bcb3dfba-7874-4e30-a29a-a6c84d115dde" />
-  ##
   
+  <img width="756" height="373" alt="image" src="https://github.com/user-attachments/assets/bcb3dfba-7874-4e30-a29a-a6c84d115dde" />
+  
+  ##
   > [!IMPORTANT]
   > **XSS**
+  ##
   
+  <img width="736" height="220" alt="image" src="https://github.com/user-attachments/assets/801ef4ce-8f38-4491-872c-3e46d60b3991" />
+
   ##
   
 
