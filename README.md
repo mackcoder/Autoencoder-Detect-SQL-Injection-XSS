@@ -16,16 +16,16 @@ optimization before being used in production environments
 </div>
 
 ## 🌟 Highlights
-  - SQL Injection and XSS (Cross-Site-Scripting)
-  - Training with Public Datasets 
-  - Implementation in Python with TensorFlow
-  - Unsupervised Machine Leaning with Autoencoder
-  - Detection tests and results
+  - 👾SQL Injection and XSS (Cross-Site-Scripting)
+  - 📂Training with Public Datasets 
+  - 🛠️Implementation in Python with TensorFlow
+  - 🧠Unsupervised Machine Leaning with Autoencoder
+  - ❗Detection tests and results
 
 # Getting Started
 ## 🥣 Prerequisites
   All following experiments were conducted using the **GoogleColab** enviroment.
-
+   
   ## 📚 Libraries Used
   - numpy - For numerical operations and array manipulation
   - pandas - For data loading and preprocessing
@@ -40,6 +40,16 @@ optimization before being used in production environments
   - [Download SQL Injection Attack for Test (D2).csv](https://zenodo.org/records/6907252)
   - [Download XSSTraining.csv](https://github.com/fmereani/Cross-Site-Scripting-XSS/blob/master/XSSDataSets/XSSTesting.csv)
   - [Download XSSTesting.csv](https://github.com/fmereani/Cross-Site-Scripting-XSS/blob/master/XSSDataSets/XSSTraining.csv)
+  ### Uploading Datasets in Google Colab:
+  - Drag and drop the files into the Files pane on the left sidebar;
+  **OR**
+  - Upload them programmatically using the following code:
+    ---
+    ```python
+    from google.colab import files
+    uploaded = files.upload()
+    ```
+    ---
   
   > [!IMPORTANT]
   > **Preprocessing for SQL Injection**
@@ -58,6 +68,20 @@ optimization before being used in production environments
   
   ## 🤖Implementing Autoencoder 
    <img width="450" height="361" alt="image" src="https://github.com/user-attachments/assets/c78d250d-0e9c-4aa0-ab4c-e79a2c1423b3" />
+   
+   > [!IMPORTANT]
+  > **Model for SQL Injection**
+  ##
+  
+  
+  ##
+
+   > [!IMPORTANT]
+  > **Model for XSS**
+  ##
+  
+  
+  ##
   
 
 
@@ -65,7 +89,8 @@ optimization before being used in production environments
 
 
 
-# SQL Injection and XSS detection |👾⚠️|
+# 🧪 Running the tests
+
 
 
 
