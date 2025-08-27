@@ -33,8 +33,6 @@ optimization before being used in production environments
   - tensorflow - For building and training the Autoencoder model
   - keras - High-level API for defining neural network layers
   - classification_report & confusion_matrix - For performance metrics
-
-  <img width="491" height="361" alt="image" src="https://github.com/user-attachments/assets/c78d250d-0e9c-4aa0-ab4c-e79a2c1423b3" />
     
   ## 🗃️ Data Acquisition and Preprocessing
   ### 📑 Datasets
@@ -44,14 +42,14 @@ optimization before being used in production environments
   - [Download XSSTesting.csv](https://github.com/fmereani/Cross-Site-Scripting-XSS/blob/master/XSSDataSets/XSSTraining.csv)
   
   > [!IMPORTANT]
-  > **The following code is for SQL Injection**
+  > **Preprocessing for SQL Injection**
   ##
   
   <img width="756" height="373" alt="image" src="https://github.com/user-attachments/assets/bcb3dfba-7874-4e30-a29a-a6c84d115dde" />
   
   ##
   > [!IMPORTANT]
-  > **The following code is for XSS**
+  > **Preprocessing for XSS**
   ##
   
   <img width="736" height="220" alt="image" src="https://github.com/user-attachments/assets/801ef4ce-8f38-4491-872c-3e46d60b3991" />
@@ -59,6 +57,7 @@ optimization before being used in production environments
   ##
   
   ## 🤖Implementing Autoencoder 
+   <img width="450" height="361" alt="image" src="https://github.com/user-attachments/assets/c78d250d-0e9c-4aa0-ab4c-e79a2c1423b3" />
   
 
 
