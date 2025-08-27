@@ -44,26 +44,55 @@ optimization before being used in production environments
   - Drag and drop the files into the Files pane on the left sidebar;
   **OR**
   - Upload them programmatically using the following code:
-    ---
-    ```python
-    from google.colab import files
-    uploaded = files.upload()
-    ```
-    ---
-  
+  ---
+  ```python
+  from google.colab import files
+  uploaded = files.upload()
+  ```
+  ---
+  ### Preprocessing data
   > [!IMPORTANT]
   > **Preprocessing for SQL Injection**
   ##
-  
-  <img width="756" height="373" alt="image" src="https://github.com/user-attachments/assets/bcb3dfba-7874-4e30-a29a-a6c84d115dde" />
-  
+  ---
+  ```python
+  dfxss = pd.read_csv('SLQ Injection Attack for training (D1) (1).csv')
+  y = dfxss['Label']
+  X = dfxss.select_dtypes(include = ['number']).drop('Label', axis = 1)
+  X_treino, X_teste, y_treino, y_teste = train_test_split( X, y, test_size=0.2,                   random_state=42, stratify=y)
+  #2 Normalização dos dados
+  escala = StandardScaler()
+  X_treino_normal = X_treino[y_treino == 0]  #Filtra apenas os dados normais para treinar o autoencoder
+  X_treino_normal_escala = escala.fit_transform(X_treino_normal)  #Ajusta e transforma os dados normais
+  X_teste_escala = escala.transform(X_teste)  #Aplica a mesma transformação ao conjunto de teste
+  ```
+  ---
   ##
   > [!IMPORTANT]
   > **Preprocessing for XSS**
   ##
+  ---
+  ```python
+  #1 Carrega o dataset de treino
+  df_treino = pd.read_csv("XSSTraining.csv")
   
-  <img width="736" height="220" alt="image" src="https://github.com/user-attachments/assets/801ef4ce-8f38-4491-872c-3e46d60b3991" />
+  # Separa os dados em variáveis independentes (X) e a variável alvo (y):
+  X = df_treino.drop("Class", axis=1)  # Remove a coluna "Class" para usar como entrada
+  y = df_treino["Class"].apply(lambda x: 1 if x == "Malicious" else 0)  # Converte rótulo para binário: 1 = ataque, 0 = normal
+  
+  #2 Divide os dados em treino e teste, mantendo a proporção das classes
+  X_treino, X_teste, y_treino, y_teste = train_test_split(
+      X, y, test_size=0.2, random_state=42, stratify=y  # 20% para teste, estratificado por classe
+  )
+  
+  #3 Normaliza apenas os dados normais do conjunto de treino
+  escala = StandardScaler()  # Inicializa o normalizador
+  X_treino_normal = X_treino[y_treino == 0]  # Filtra apenas os dados normais
+  X_treino_normal_escala = escala.fit_transform(X_treino_normal)  # Ajusta e transforma os      dados normais
+  X_teste_escala = escala.transform(X_teste)  # Aplica a mesma transformação ao conjunto de teste
 
+  ```
+  ---
   ##
   
   ## 🤖Implementing Autoencoder 
@@ -72,20 +101,164 @@ optimization before being used in production environments
    > [!IMPORTANT]
   > **Model for SQL Injection**
   ##
-  
-  
+  ---
+  ```python
+  #3 Criação da arquitetura do Autoencoder
+input_dim = X_treino.shape[1]  #Define o número de atributos de entrada
+input_layer = Input(shape=(input_dim,))  #Camada de entrada
+
+# Camadas de codificação (reduzem a dimensionalidade)
+encoded = Dense(16, activation='relu')(input_layer)
+encoded = Dense(8, activation='relu')(encoded)
+
+# Camadas de decodificação (reconstrução dos dados)
+decoded = Dense(16, activation='relu')(encoded)
+decoded = Dense(input_dim, activation='relu')(decoded)  # Camada final com mesma dimensão da entrada
+
+# Cria o modelo Autoencoder e compila com otimizador Adam e função de perda MSE
+autoencoder = Model(inputs=input_layer, outputs=decoded)
+autoencoder.compile(optimizer='adam', loss='mse')
+
+#4 Treinamento do Autoencoder com os dados normais
+autoencoder.fit(
+    X_treino_normal_escala, X_treino_normal_escala,
+    epochs=90,  #Número de ciclos
+    batch_size=32,  #Tamanho do lote
+    shuffle=True,  #Embaralha os dados a cada época
+    validation_split=0.1,  #10% dos dados para validação
+    verbose=1  #Exibe progresso do treinamento
+)
+
+#5 Reconstrução dos dados de teste e cálculo do erro de reconstrução
+X_recalculo = autoencoder.predict(X_teste_escala)  #Reconstrói os dados de teste
+error = np.mean(np.square(X_teste_escala - X_recalculo), axis=1)  #Calcula o erro por amostra
+
+# Reconstrução dos dados normais de treino e cálculo do erro
+reco_treino = autoencoder.predict(X_treino_normal_escala)
+mse_train = np.mean(np.square(X_treino_normal_escala - reco_treino), axis=1)
+
+# 6. Loop para encontrar o melhor threshold (limiar de detecção)
+porcentagens = range(70, 100, 2)  # Testa thresholds entre 70 e 98
+melhor_recall = 0  #Inicializa o melhor recall
+melhor_threshold = 0  #Inicializa o melhor threshold
+melhor_resultado = {}  #Dicionário para armazenar o melhor resultado
+
+y_teste_numeric = y_teste.values  #Converte os rótulos para array NumPy
+
+# Loop para testar diferentes thresholds:
+for x in porcentagens:
+    threshold = np.percentile(mse_train, x)  #Define o threshold com base no erro dos dados normais
+    prev_loop = [1 if i > threshold else 0 for i in error]  #Classifica como ataque se erro > threshold
+
+    #Gera relatório de classificação para o threshold atual:
+    relatorio = classification_report(
+        y_teste_numeric, prev_loop,
+        target_names=["Normal", "Ataque"],
+        output_dict=True
+    )
+    recall_ataque = relatorio["Ataque"]["recall"]  #Extrai o recall da classe "Ataque"
+
+    # Atualiza o melhor resultado se o recall for maior:
+    if recall_ataque > melhor_recall:
+        melhor_recall = recall_ataque
+        melhor_threshold = threshold
+        melhor_resultado = {
+            "percentil": x,
+            "precision": relatorio["Ataque"]["precision"],
+            "recall": recall_ataque,
+            "f1": relatorio["Ataque"]["f1-score"],
+            "matriz_confusao": confusion_matrix(y_teste_numeric, prev_loop)
+        }
+
+  ```
+  ---
   ##
 
    > [!IMPORTANT]
-  > **Model for XSS**
+  > **🏋️‍♂️Model training for XSS**
+  ##
+  ---
+  ```python
+  #4 Define a arquitetura do Autoencoder
+input_dim = X.shape[1]  # Número de atributos de entrada
+input_layer = Input(shape=(input_dim,))  # Camada de entrada
+
+# Camadas de codificação
+encoded = Dense(16, activation='relu')(input_layer)
+encoded = Dense(8, activation='relu')(encoded)
+
+# Camadas de decodificação
+decoded = Dense(16, activation='relu')(encoded)
+decoded = Dense(input_dim, activation='relu')(decoded)  #Reconstrói a entrada
+
+# Cria e compila o modelo Autoencoder
+autoencoder = Model(inputs=input_layer, outputs=decoded)
+autoencoder.compile(optimizer='adam', loss='mse')  #Usa o erro como função de perda
+
+#5 Treina o Autoencoder apenas com dados normais
+autoencoder.fit(
+    X_treino_normal_escala, X_treino_normal_escala,  #Entrada e saída são iguais
+    epochs=90, batch_size=32, shuffle=True,  #Treinamento por 90 épocas/ciclos
+    validation_split=0.1, verbose=1  # Usa 10% dos dados normais para validação
+)
+
+#6 Calcula o erro de reconstrução no conjunto de teste
+X_recalculo = autoencoder.predict(X_teste_escala)  #Reconstrói os dados de teste
+error = np.mean(np.square(X_teste_escala - X_recalculo), axis=1)  #Erro de reconstrução por amostra
+
+# Calcula o erro de reconstrução nos dados normais de treino
+reco_treino = autoencoder.predict(X_treino_normal_escala)
+mse_train = np.mean(np.square(X_treino_normal_escala - reco_treino), axis=1)
+
+#7 Busca o melhor threshold para detectar ataques
+porcentagens = range(70, 100, 2)  #Testa thresholds entre 70 e 98
+melhor_recall = 0
+melhor_threshold = 0
+melhor_resultado = {}
+
+y_teste_numeric = y_teste.values  #Converte para array NumPy
+
+# Loop para testar diferentes thresholds
+for x in porcentagens:
+    threshold = np.percentile(mse_train, x)  #Define threshold com base no erro dos dados normais
+    prev_loop = [1 if i > threshold else 0 for i in error]  #Classifica como ataque se erro > threshold
+
+    # Gera relatório de classificação
+    relatorio = classification_report(
+        y_teste_numeric, prev_loop,
+        target_names=["Normal", "Ataque"],
+        output_dict=True
+    )
+    recall_ataque = relatorio["Ataque"]["recall"]  #Extrai o recall da classe "Ataque"
+
+    # Atualiza o melhor resultado se o recall for maior
+    if recall_ataque > melhor_recall:
+        melhor_recall = recall_ataque
+        melhor_threshold = threshold
+        melhor_resultado = {
+            "percentil": x,
+            "precision": relatorio["Ataque"]["precision"],
+            "recall": recall_ataque,
+            "f1": relatorio["Ataque"]["f1-score"],
+            "matriz_confusao": confusion_matrix(y_teste_numeric, prev_loop)
+        }
+
+  ```
+  ---
+  
   ##
   
+
+   > [!IMPORTANT]
+  > **🏋️‍♂️Model testing for XSS**
+  ##
+  ---
+  ```python
+
+  ```
+  ---
   
   ##
-  
-
-
-
 
 
 
