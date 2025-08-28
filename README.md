@@ -52,8 +52,9 @@ optimization before being used in production environments
   ---
   ### Preprocessing data
   > [!IMPORTANT]
-  > **Preprocessing for SQL Injection**
+  > **For SQL Injection**
   ##
+  Explanation: 
   ---
   ```python
   dfxss = pd.read_csv('SLQ Injection Attack for training (D1) (1).csv')
@@ -67,10 +68,12 @@ optimization before being used in production environments
   X_teste_escala = escala.transform(X_teste)  #Aplica a mesma transformação ao conjunto de teste
   ```
   ---
+  
   ##
   > [!IMPORTANT]
-  > **Preprocessing for XSS**
+  > **For XSS**
   ##
+  Explanation: 
   ---
   ```python
   #1 Carrega o dataset de treino
@@ -101,6 +104,7 @@ optimization before being used in production environments
    > [!IMPORTANT]
   > **Model for SQL Injection**
   ##
+  Explanation: 
   ---
   ```python
   #3 Criação da arquitetura do Autoencoder
@@ -177,6 +181,7 @@ for x in porcentagens:
    > [!IMPORTANT]
   > **🏋️‍♂️Model training for XSS**
   ##
+  Explanation: 
   ---
   ```python
   #4 Define a arquitetura do Autoencoder
@@ -252,15 +257,22 @@ for x in porcentagens:
    > [!IMPORTANT]
   > **🏋️‍♂️Model testing for XSS**
   ##
+  Explanation: 
   ---
   ```python
-
+  df_xss = pd.read_csv("XSSTesting.csv")
+  y_xss = df_xss["Class"].apply(lambda x: 1 if x == "Malicious" else 0)  #Converte rótulo para binário
+  X_xss = df_xss.drop("Class", axis=1)  #Remove a coluna de classe
+  
+  X_xss_escala = escala.transform(X_xss)  #Normaliza os dados com o mesmo scaler
+  X_xss_reconstruido = autoencoder.predict(X_xss_escala)  #Reconstrói os dados
+  erro_xss = np.mean(np.square(X_xss_escala - X_xss_reconstruido), axis=1)  #Calcula erro de reconstrução
+  
+  prev_xss = [1 if e > melhor_threshold else 0 for e in erro_xss]  #Classifica com base no threshold ideal
   ```
   ---
   
   ##
-
-
 
 # 🧪 Running the tests
 
