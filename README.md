@@ -54,7 +54,12 @@ optimization before being used in production environments
   > [!IMPORTANT]
   > **For SQL Injection**
   ##
-  Explanation: 
+  Explanation:
+  <div align="justify">
+  In this section, the CSV file containing the dataset is loaded. The target variable (y) is extracted from the 'Label' column, while the feature matrix (X) is composed of all numerical columns except 'Label'. The dataset is then split into training and testing sets using train_test_split, with 80% of the data allocated for training and 20% for testing. The stratify=y parameter ensures that the class distribution remains consistent across both sets.
+Next, data normalization is performed using StandardScaler. Only the normal samples (where y_treino == 0) are used to train the autoencoder, so the scaler is fitted exclusively on these. The same scaling transformation is then applied to the entire test set to ensure consistency.
+  </div>
+  
   ---
   ```python
   dfxss = pd.read_csv('SLQ Injection Attack for training (D1) (1).csv')
@@ -74,6 +79,9 @@ optimization before being used in production environments
   > **For XSS**
   ##
   Explanation: 
+  <div align="justify">
+
+  </div>  
   ---
   ```python
   #1 Carrega o dataset de treino
