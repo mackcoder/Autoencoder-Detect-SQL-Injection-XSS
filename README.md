@@ -104,7 +104,7 @@ Next, data normalization is performed using StandardScaler. Only the normal samp
   #3 Normaliza apenas os dados normais do conjunto de treino
   escala = StandardScaler()  # Inicializa o normalizador
   X_treino_normal = X_treino[y_treino == 0]  # Filtra apenas os dados normais
-  X_treino_normal_escala = escala.fit_transform(X_treino_normal)  # Ajusta e transforma os      dados normais
+  X_treino_normal_escala = escala.fit_transform(X_treino_normal)  # Ajusta e transforma os dados normais
   X_teste_escala = escala.transform(X_teste)  # Aplica a mesma transformação ao conjunto de teste
 
   ```
