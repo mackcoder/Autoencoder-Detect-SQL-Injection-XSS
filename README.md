@@ -68,7 +68,7 @@ Next, data normalization is performed using StandardScaler. Only the normal samp
   dfxss = pd.read_csv('SLQ Injection Attack for training (D1) (1).csv')
   y = dfxss['Label']
   X = dfxss.select_dtypes(include = ['number']).drop('Label', axis = 1)
-  X_treino, X_teste, y_treino, y_teste = train_test_split( X, y, test_size=0.2,                   random_state=42, stratify=y)
+  X_treino, X_teste, y_treino, y_teste = train_test_split( X, y, test_size=0.2, random_state=42, stratify=y)
   #2 Normalização dos dados
   escala = StandardScaler()
   X_treino_normal = X_treino[y_treino == 0]  #Filtra apenas os dados normais para treinar o autoencoder
