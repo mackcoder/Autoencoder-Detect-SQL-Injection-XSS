@@ -3,7 +3,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/mackcoder/ML-models-AutoencoderVanila-in-Python.-?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mackcoder/ML-models-AutoencoderVanila-in-Python.-?style=for-the-badge)
 
-## 📝Desciption
+## 📝Description
 <div align="justify">
   This study aims to improve website defense systems through unsupervised machine
 learning methods to detect SQL Injection (SQLi) and Cross-Site Scripting (XSS) attacks.
@@ -288,8 +288,27 @@ for x in porcentagens:
 
 # 🧪 Running the tests
 
+## 👾 Model trained for SQL INJECTION:                            
 
+|   Classe   | Precisão  | Recall | F1-Score |
+|------------|---------- |--------|----------|
+|  NORMAL    |   0.92    |  0.81  |   0.86   |
+|  ATAQUE    |   0.60    |  0.80  |   0.69   |
+|------------|-----------|--------|----------|
+| ACCURACY   |           |        |   0.91   |
+| MACRO AVG  |   0.91    |  0.92  |   0.91   |
+| WEIGHT AVG |   0.92    |  0.92  |   0.91   |
 
+## 👾 Model trained for CROSS-SITE SCRIPTING:
+
+|   Classe   | Precisão  | Recall | F1-Score |
+|------------|---------- |--------|----------|
+|  NORMAL    |   0.92    |  0.81  |   0.86   |
+|  ATAQUE    |   0.60    |  0.80  |   0.69   |
+|------------|-----------|--------|----------|
+| ACCURACY   |           |        |   0.91   |
+| MACRO AVG  |   0.91    |  0.92  |   0.91   |
+| WEIGHT AVG |   0.92    |  0.92  |   0.91   |
 
 
 
