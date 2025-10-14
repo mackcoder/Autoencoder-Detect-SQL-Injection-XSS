@@ -303,12 +303,37 @@ for x in porcentagens:
 
 |   Classe   | Precisão  | Recall | F1-Score |
 |------------|---------- |--------|----------|
-|  NORMAL    |   0.92    |  0.81  |   0.86   |
-|  ATAQUE    |   0.60    |  0.80  |   0.69   |
+|  NORMAL    |   1.00    |  0.84  |   0.91   |
+|  ATAQUE    |   0.82    |  1.00  |   0.90   |
 |------------|-----------|--------|----------|
 | ACCURACY   |           |        |   0.91   |
 | MACRO AVG  |   0.91    |  0.92  |   0.91   |
-| WEIGHT AVG |   0.92    |  0.92  |   0.91   |
+| WEIGHT AVG |   0.92    |  0.91  |   0.91   |
+
+## 📊 Graphics
+
+
+<img width="2884" height="1467" alt="SQLINjection_graphic" src="https://github.com/user-attachments/assets/c6511cfb-e16c-4022-a7ee-22f12a1eed65" />
+
+---
+  
+
+<img width="2884" height="1452" alt="XSS_graphic" src="https://github.com/user-attachments/assets/fa4df1a7-feef-4a17-8c8a-d8c73b977a71" />
+
+## ✍️ Final Considerations
+
+Even though the tests showed some promissing results, there are still some improvements to be made as to:
+  - Improve the pre-processing method
+  - 
+  -
+  -
+  -
+  
+
+
+
+
+
 
 
 
