@@ -334,12 +334,16 @@ for x in porcentagens:
 ## ✍️ Final Considerations
 This project demonstrates the potential of **unsupervised anomaly detection** with Autoencoders in cybersecurity applications. The method showed strong recall for attack detection, particularly for **SQL Injection**, but further improvements are needed to reduce false positives in **XSS** detection.
 
-Future work may include:
-  - Improve the pre-processing method
-  - 
-  -
-  -
-  -
+🔮 Future Work May Include:
+Enhancing the pre-processing method to improve data quality and model performance.
+
+Experimenting with different neuron configurations to obtain more robust and interpretable results.
+
+Validating the model using real traffic data to observe its behavior, assess accuracy, and measure execution time.
+
+Applying ROC curve analysis to visually identify the optimal threshold, replacing the current method with a more time-efficient approach.
+
+Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed.
   
 
 
