@@ -52,7 +52,7 @@ optimization before being used in production environments
   ---
   ### Preprocessing data
  
-  Explanation:
+   ## 📝 Explanation:
   <div align="justify">
   In this section, the CSV file containing the dataset (SQL Injection) is loaded. The target variable (y) is extracted from the 'Label' column, while the feature matrix (X) is composed of all numerical columns except 'Label'. The dataset is then split into training and testing sets using train_test_split, with 80% of the data allocated for training and 20% for testing. The stratify=y parameter ensures that the class distribution remains consistent across both sets.
 Next, data normalization is performed using StandardScaler. Only the normal samples (where y_treino == 0) are used to train the autoencoder, so the scaler is fitted exclusively on these. The same scaling transformation is then applied to the entire test set to ensure consistency.
@@ -77,8 +77,7 @@ Next, data normalization is performed using StandardScaler. Only the normal samp
   ```
   ---
   
-  ##
-  Explanation: 
+  ## 📝 Explanation: 
   <div align="justify">
   The XSS dataset underwent the same preprocessing steps used for the SQL Injection data. The only difference was in how the feature matrix (X) was extracted from the 'Label' collumn.
   </div>  
@@ -115,11 +114,32 @@ Next, data normalization is performed using StandardScaler. Only the normal samp
    
    > [!IMPORTANT]
   > **Model for SQL Injection**
-  ##
-  Explanation: 
-  ---
+  ## 📝 Explanation:
+  ### 1. 📐 Define Input Dimensions + Compression and decompression 
+  - Determine the number of input features
+  - Initialize the input layer for neural network
+  - Compresses the input data into a lower-dimensional representation (encoded)
+  - Helps the model learn the most relevant patterns from normal data (encoded)
+  - The algorithym reconstructs the original input from the compressed representation by itself
+  - The final layer matches the original input shape
+```python
+#3 Criação da arquitetura do Autoencoder
+input_dim = X_treino.shape[1]  #Define o número de atributos de entrada
+input_layer = Input(shape=(input_dim,))  #Camada de entrada
+
+# Camadas de codificação (reduzem a dimensionalidade)
+encoded = Dense(16, activation='relu')(input_layer)
+encoded = Dense(8, activation='relu')(encoded)
+
+# Camadas de decodificação (reconstrução dos dados)
+decoded = Dense(16, activation='relu')(encoded)
+decoded = Dense(input_dim, activation='relu')(decoded)  # Camada final com mesma dimensão da entrada
+```
+  ### 2. 
+  
+  
   ```python
-  #3 Criação da arquitetura do Autoencoder
+#3 Criação da arquitetura do Autoencoder
 input_dim = X_treino.shape[1]  #Define o número de atributos de entrada
 input_layer = Input(shape=(input_dim,))  #Camada de entrada
 
@@ -192,8 +212,7 @@ for x in porcentagens:
 
    > [!IMPORTANT]
   > **🏋️‍♂️Model training for XSS**
-  ##
-  Explanation: 
+  ## 📝 Explanation: 
   ---
   ```python
   #4 Define a arquitetura do Autoencoder
@@ -268,8 +287,7 @@ for x in porcentagens:
 
    > [!IMPORTANT]
   > **🏋️‍♂️Model testing for XSS**
-  ##
-  Explanation: 
+  ## 📝 Explanation:
   ---
   ```python
   df_xss = pd.read_csv("XSSTesting.csv")
@@ -319,8 +337,6 @@ for x in porcentagens:
 | **XSS**           | Normal | 1.00      | 0.84   | 0.91     | **0.91** |
 |                   | Attack | 0.82      | 1.00   | 0.90     |          |
 
-
-
 ## 📊 Graphics
 
 
@@ -334,16 +350,16 @@ for x in porcentagens:
 ## ✍️ Final Considerations
 This project demonstrates the potential of **unsupervised anomaly detection** with Autoencoders in cybersecurity applications. The method showed strong recall for attack detection, particularly for **SQL Injection**, but further improvements are needed to reduce false positives in **XSS** detection.
 
-🔮 Future Work May Include:
-Enhancing the pre-processing method to improve data quality and model performance.
+🔮 Future Work May Include: 
+- Enhancing the pre-processing method to improve data quality and model performance.
 
-Experimenting with different neuron configurations to obtain more robust and interpretable results.
+- Experimenting with different neuron configurations to obtain more robust and interpretable results.
 
-Validating the model using real traffic data to observe its behavior, assess accuracy, and measure execution time.
+- Validating the model using real traffic data to observe its behavior, assess accuracy, and measure execution time.
 
-Applying ROC curve analysis to visually identify the optimal threshold, replacing the current method with a more time-efficient approach.
+- Applying ROC curve analysis to visually identify the optimal threshold, replacing the current method with a more time-efficient approach.
 
-Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed.
+- Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed.
   
 
 
