@@ -135,22 +135,11 @@ encoded = Dense(8, activation='relu')(encoded)
 decoded = Dense(16, activation='relu')(encoded)
 decoded = Dense(input_dim, activation='relu')(decoded)  # Camada final com mesma dimensão da entrada
 ```
-  ### 2. 
-  
-  
+  ### 2.🏋️ Model training
+  - Building model
+  - Adam optimizer and MSE (Mean Squared Error) used
+  - 90 cycles (epochs) done to learn important patterns
   ```python
-#3 Criação da arquitetura do Autoencoder
-input_dim = X_treino.shape[1]  #Define o número de atributos de entrada
-input_layer = Input(shape=(input_dim,))  #Camada de entrada
-
-# Camadas de codificação (reduzem a dimensionalidade)
-encoded = Dense(16, activation='relu')(input_layer)
-encoded = Dense(8, activation='relu')(encoded)
-
-# Camadas de decodificação (reconstrução dos dados)
-decoded = Dense(16, activation='relu')(encoded)
-decoded = Dense(input_dim, activation='relu')(decoded)  # Camada final com mesma dimensão da entrada
-
 # Cria o modelo Autoencoder e compila com otimizador Adam e função de perda MSE
 autoencoder = Model(inputs=input_layer, outputs=decoded)
 autoencoder.compile(optimizer='adam', loss='mse')
@@ -164,7 +153,13 @@ autoencoder.fit(
     validation_split=0.1,  #10% dos dados para validação
     verbose=1  #Exibe progresso do treinamento
 )
-
+```
+### 3.🏋️ Reconstruct model + Reference Error
+  - Reconstruct test data
+  - Calculate reconstruction error for each sample
+  - Measures baseline error from normal training data
+  - Used to define detection threshold
+```python
 #5 Reconstrução dos dados de teste e cálculo do erro de reconstrução
 X_recalculo = autoencoder.predict(X_teste_escala)  #Reconstrói os dados de teste
 error = np.mean(np.square(X_teste_escala - X_recalculo), axis=1)  #Calcula o erro por amostra
@@ -172,7 +167,9 @@ error = np.mean(np.square(X_teste_escala - X_recalculo), axis=1)  #Calcula o err
 # Reconstrução dos dados normais de treino e cálculo do erro
 reco_treino = autoencoder.predict(X_treino_normal_escala)
 mse_train = np.mean(np.square(X_treino_normal_escala - reco_treino), axis=1)
+```
 
+```python
 # 6. Loop para encontrar o melhor threshold (limiar de detecção)
 porcentagens = range(70, 100, 2)  # Testa thresholds entre 70 e 98
 melhor_recall = 0  #Inicializa o melhor recall
