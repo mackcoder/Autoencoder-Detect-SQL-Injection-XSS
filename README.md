@@ -120,8 +120,8 @@ Next, data normalization is performed using StandardScaler. Only the normal samp
   - Initialize the input layer for neural network
   - Compresses the input data into a lower-dimensional representation (encoded)
   - Helps the model learn the most relevant patterns from normal data (encoded)
-  - The algorithym reconstructs the original input from the compressed representation by itself
-  - The final layer matches the original input shape
+  - The algorithym reconstructs the original input from the compressed representation by itself (decoded)
+  - The final layer matches the original input shape (decoded)
 ```python
 #3 Criação da arquitetura do Autoencoder
 input_dim = X_treino.shape[1]  #Define o número de atributos de entrada
@@ -137,6 +137,7 @@ decoded = Dense(input_dim, activation='relu')(decoded)  # Camada final com mesma
 ```
   ### 2.🏋️ Model training
   - Building model
+  - Normal is inserted in the autoencoder training
   - Adam optimizer and MSE (Mean Squared Error) used
   - 90 cycles (epochs) done to learn important patterns
   ```python
@@ -168,7 +169,9 @@ error = np.mean(np.square(X_teste_escala - X_recalculo), axis=1)  #Calcula o err
 reco_treino = autoencoder.predict(X_treino_normal_escala)
 mse_train = np.mean(np.square(X_treino_normal_escala - reco_treino), axis=1)
 ```
-
+### 4.🔬 Threshold optimization loop + Classification Report + Recall optimization
+  - Loop created to identify the optimal threshold and recall
+  - Generating classification report -> compares the model's reconstruction-bases predictions against the true labels
 ```python
 # 6. Loop para encontrar o melhor threshold (limiar de detecção)
 porcentagens = range(70, 100, 2)  # Testa thresholds entre 70 e 98
@@ -205,11 +208,14 @@ for x in porcentagens:
 
   ```
   ---
-  ##
+
 
    > [!IMPORTANT]
   > **🏋️‍♂️Model training for XSS**
   ## 📝 Explanation: 
+The same training procedure used for the SQL Injection detection model was applied to the XSS (Cross-Site Scripting) detection model.  
+This includes the autoencoder architecture, preprocessing steps, training strategy, and threshold optimization for anomaly classification.
+
   ---
   ```python
   #4 Define a arquitetura do Autoencoder
@@ -278,13 +284,17 @@ for x in porcentagens:
 
   ```
   ---
-  
   ##
-  
 
-   > [!IMPORTANT]
+  > [!IMPORTANT]
   > **🏋️‍♂️Model testing for XSS**
-  ## 📝 Explanation:
+  ## 📝 Explanation: Now the Dataset with testing data is loaded to test the model's capabilities to detect XSS patterns
+  - Loads XSS Dataset into a DataFrame
+  - Converts the "Class" column into binary labels: 1 for malicious, 0 for normal
+  - Separates the feature set by removing the label column
+  - Applies the same scaler used during training to ensure consistent data distribution
+  - Uses the trained autoencoder to reconstruct the input data
+  - Computes the mean squared error for each sample to quantify how well the model reconstructed it
   ---
   ```python
   df_xss = pd.read_csv("XSSTesting.csv")
@@ -298,7 +308,6 @@ for x in porcentagens:
   prev_xss = [1 if e > melhor_threshold else 0 for e in erro_xss]  #Classifica com base no threshold ideal
   ```
   ---
-  
   ##
 
 # 🧪 Running the tests
@@ -348,17 +357,31 @@ for x in porcentagens:
 This project demonstrates the potential of **unsupervised anomaly detection** with Autoencoders in cybersecurity applications. The method showed strong recall for attack detection, particularly for **SQL Injection**, but further improvements are needed to reduce false positives in **XSS** detection.
 
 🔮 Future Work May Include: 
-- Enhancing the pre-processing method to improve data quality and model performance.
+- Enhancing the pre-processing method to improve data quality and model performance
 
-- Experimenting with different neuron configurations to obtain more robust and interpretable results.
+- Experimenting with different neuron configurations to obtain more robust and interpretable results
 
-- Validating the model using real traffic data to observe its behavior, assess accuracy, and measure execution time.
+- Validating the model using real traffic data to observe its behavior, assess accuracy, and measure execution time
 
-- Applying ROC curve analysis to visually identify the optimal threshold, replacing the current method with a more time-efficient approach.
+- Applying ROC curve analysis to visually identify the optimal threshold, replacing the current method with a more time-efficient approach
 
-- Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed.
+- Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed
+
+## 👤 Author
+- Naoto Ushizaki
+- Email: 
+
+## 👥 Contributor
+- Prof. Dr. Rodrigo Cardoso Silva - Academic advisor and project supervisor 
   
-
+## 📚 References
+- MAC, Hieu; TRUONG, Dung; NGUYEN, Lam; NGUYEN, Hoa; TRAN, Hai Anh; TRAN, Duc. Detecting Attacks on Web Applications using Autoencoder. In: The Ninth International Symposium on Information and Communication Technology (SoICT 2018), Danang City, Viet Nam, 6 dez. 2018. Disponível em: https://admin.tvrijakartanews.com/uploads/Detecting_Attackson_Web_Applicationsusing_Autoencoder_dab6406334.pdf. Acesso em: 14 ago. 2025.
+- AUGUSTINE, Nwabudike.; SULTAN, A.B.M.; OSMAN, M.H.; SHARIF, K.Y. Application of Artificial Intelligence in detecting SQL Injection Attacks. Internacional Journal On Informatics Visualization. 22 out. 2024. Disponível em: https://joiv.org/index.php/joiv/article/download/3631/1136. Acesso em: 14 ago. 2025.
+- HOPHR. How to implement and scale up autoencoders in TensorFlow for anomaly detection or data generation tasks. HopHR, s.d. Disponível em: https://www.hophr.com/tutorial-page/implement-and-scale-up-autoencoders-in-tensorflow-for-anomaly-detection-or-data-generation-tasks. Acesso em: 03 ago. 2025.
+- CAMPAZAS, A.; CRESPO, I. SQL Injection Attack for Training (D1). Zenodo, 26 jul. 2022. Disponível em: https://zenodo.org/records/6906893. Acesso em: 19 jul. 2025.
+- CAMPAZAS, A.; CRESPO, I. SQL Injection Attack for Test (D2). Netflow. Zenodo, 26 jul. 2022. Disponível em: https://zenodo.org/records/6907252. Acesso em: 19 jul. 2025.
+- MEREANI, F. A.; HOWE, J. M. (2018). Detecting Cross-Site Scripting Attacks Using Machine Learning. In Advanced Machine Learning Technologies and Applications, volume 723 of AISC, pages 200–210. Springer. Disponível em: https://github.com/fmereani/Cross-Site-Scripting-XSS/tree/master/XSSDataSets. Acesso em: 28 jul. 2025.
+- LEHR, J. et al. Supervised learning vs. unsupervised learning: a comparison for optical inspection applications in quality control. IOP Conference Series: Materials Science and Engineering, v. 1140, 2021. Disponível em: https://iopscience.iop.org/article/10.1088/1757-899X/1140/1/012049/pdf. Acesso em: 14 fev. 2024.
 
 
 
