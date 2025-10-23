@@ -155,7 +155,7 @@ autoencoder.fit(
     verbose=1  #Exibe progresso do treinamento
 )
 ```
-### 3.🏋️ Reconstruct model + Reference Error
+### 3.🧩 Reconstruct model + Reference Error
   - Reconstruct test data
   - Calculate reconstruction error for each sample
   - Measures baseline error from normal training data
@@ -334,7 +334,7 @@ for x in porcentagens:
 | MACRO AVG  |   0.91    |  0.92  |   0.91   |
 | WEIGHT AVG |   0.92    |  0.91  |   0.91   |
 
-## Comparison:
+## ⚖️ Comparison:
 
 | Attack Type       | Metric | Precision | Recall | F1-Score | Accuracy |
 | ----------------- | ------ | --------- | ------ | -------- | -------- |
@@ -367,12 +367,15 @@ This project demonstrates the potential of **unsupervised anomaly detection** wi
 
 - Implementing adaptive monitoring techniques to continuously track performance metrics and adjust parameters as needed
 
-## 👤 Author
-- Naoto Ushizaki
-- Email: 
+## 📩 Contact
+- **Name**: Naoto Ushizaki
+- **Email**: 10437445@mackenzista.com.br
+- **Linkedin**: www.linkedin.com/in/naoto-ushizaki-30b94a172
+- **GitHub**: [@mackcoder](https://github.com/mackcoder)
 
 ## 👥 Contributor
-- Prof. Dr. Rodrigo Cardoso Silva - Academic advisor and project supervisor 
+- Prof. Dr. Rodrigo Cardoso Silva - Academic advisor and project supervisor
+- **GitHub**: [@profdsrodrigo](https://github.com/profdscrodrigo)
   
 ## 📚 References
 - MAC, Hieu; TRUONG, Dung; NGUYEN, Lam; NGUYEN, Hoa; TRAN, Hai Anh; TRAN, Duc. Detecting Attacks on Web Applications using Autoencoder. In: The Ninth International Symposium on Information and Communication Technology (SoICT 2018), Danang City, Viet Nam, 6 dez. 2018. Disponível em: https://admin.tvrijakartanews.com/uploads/Detecting_Attackson_Web_Applicationsusing_Autoencoder_dab6406334.pdf. Acesso em: 14 ago. 2025.
@@ -383,6 +386,8 @@ This project demonstrates the potential of **unsupervised anomaly detection** wi
 - MEREANI, F. A.; HOWE, J. M. (2018). Detecting Cross-Site Scripting Attacks Using Machine Learning. In Advanced Machine Learning Technologies and Applications, volume 723 of AISC, pages 200–210. Springer. Disponível em: https://github.com/fmereani/Cross-Site-Scripting-XSS/tree/master/XSSDataSets. Acesso em: 28 jul. 2025.
 - LEHR, J. et al. Supervised learning vs. unsupervised learning: a comparison for optical inspection applications in quality control. IOP Conference Series: Materials Science and Engineering, v. 1140, 2021. Disponível em: https://iopscience.iop.org/article/10.1088/1757-899X/1140/1/012049/pdf. Acesso em: 14 fev. 2024.
 
+## 🚨 Issue report
+- You can also open an [issue_template]([https://github.com/your-repo/issues](https://github.com/mackcoder/Machine-Learning---Autoencoder-SQL-Injection-and-XSS/blob/main/.github/ISSUE_TEMPLATE/issue_template.md)) if it's related to this project.
 
 
 
