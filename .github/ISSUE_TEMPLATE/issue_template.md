@@ -1,42 +1,32 @@
----
-name: ISSUE_TEMPLATE
-about: 'This section is used to report any issue or bug to help us improve. '
-title: ''
-labels: bug, invalid, question
-assignees: mackcoder
+**Name**: Bug Report<br>
+**About**: Report a bug to help us improve<br>
+**Title**: "[BUG] Describe the issue"<br>
+**Labels**: bug<br>
+**Assignees**: ''<br>
 
 ---
 
----
-**Name**: Bug Report
-**About**: Report a bug to help us improve
-**Title**: "[BUG] Describe the issue"
-**Labels**: bug
-**Assignees**: ''
-
----
-
-**Describe the bug**
+**Describe the bug**<br>
 A clear and concise description of what the bug is.
 
 ---
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '...'
-3. See error
+**To Reproduce**<br>
+Steps to reproduce the behavior:<br>
+1. Go to '...'<br>
+2. Click on '...'<br>
+3. See error<br>
 
-**Expected behavior**
+**Expected behavior**<br>
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
+**Screenshots**<br>
 If applicable, add screenshots to help explain your problem.
 
-**Environment**
+**Environment**<br>
  - OS: [e.g. Windows 10]
  - Browser: [e.g. Chrome 91]
  - Version: [e.g. 1.0.0]
 
-**Additional context**
+**Additional context**<br>
 Add any other context about the problem here.
