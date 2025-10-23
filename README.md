@@ -387,7 +387,8 @@ This project demonstrates the potential of **unsupervised anomaly detection** wi
 - LEHR, J. et al. Supervised learning vs. unsupervised learning: a comparison for optical inspection applications in quality control. IOP Conference Series: Materials Science and Engineering, v. 1140, 2021. Disponível em: https://iopscience.iop.org/article/10.1088/1757-899X/1140/1/012049/pdf. Acesso em: 14 fev. 2024.
 
 ## 🚨 Issue report
-- You can also open an [issue_template]([https://github.com/your-repo/issues](https://github.com/mackcoder/Machine-Learning---Autoencoder-SQL-Injection-and-XSS/blob/main/.github/ISSUE_TEMPLATE/issue_template.md)) if it's related to this project.
+- You can also open an [issue template](https://github.com/mackcoder/Machine-Learning---Autoencoder-SQL-Injection-and-XSS/blob/main/.github/ISSUE_TEMPLATE/issue_template.md) if it's related to this project.
+
 
 
 
